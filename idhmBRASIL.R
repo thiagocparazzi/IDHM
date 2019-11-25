@@ -6,7 +6,7 @@ library(rgl)
 library(gridExtra)
 
 #lendo arquivo
-idhm = read.csv('D:/Dados/Documents/idhmBrasil.csv', header = TRUE, fileEncoding = 'UTF-8')
+idhm = read.csv('D:/Dados/Downloads/idhmBrasil.csv', header = TRUE, fileEncoding = 'UTF-8')
 
 #adicionado nova coluna e valores conectados com a coluna UF (Unidade Federativa)
 idhm['REGIÃO'] <- NA
@@ -278,7 +278,6 @@ ggplot(sul, aes(GINI, IDHM, color = UF)) +
 
 ggplot(rmc, aes(GINI, IDHM)) +
   geom_point() + geom_text(aes(label = Município), nudge_y = -0.0015) + facet_grid(.~ANO)
-<<<<<<< HEAD
 
 #População XX Fecundidade Total
 ggplot(rmc, aes(ESPVIDA, POPT)) +
