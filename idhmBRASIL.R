@@ -1,3 +1,10 @@
+#install.packages("tidyverse")
+#install.packages("ggplot2")
+#install.packages("factoextra")
+#install.packages("animation")
+#install.packages("rgl")
+#install.packages("gridExtra")
+
 library(tidyverse)
 library(ggplot2)
 library(factoextra)
@@ -293,7 +300,11 @@ boxplot(sul[,9:240])
 idhm.scaled <- scale(idhm[, -c(1:8, 241)])
 
 #verificando quantidade ideal de clusters - Elbow Method
-fviz_nbclust(idhm.scaled, kmeans, method = "wss")
+fviz_nbclust(idhm.scaled, kmeans, method = "wss") +
+  labs(subtitle = "Elbow method")
+
+fviz_nbclust(idhm.scaled, kmeans, method = "silhouette") +
+  labs(subtitle = "Silhouette method")
 
 #plots de comparação
 k2 <- kmeans(idhm.scaled, centers = 2)
@@ -314,6 +325,7 @@ idhm_data$cluster <- as.factor(cluster$cluster)
 
 fviz_cluster(cluster, data = idhm.scaled)
 plot3d(idhm.scaled, col=idhm_data$cluster, main="k-means clusters")
+heatmap(idhm.scaled)
 
 #separando por clusters
 ###CLUSTER 1
@@ -338,3 +350,4 @@ h <- hist(cluster2$FECTOT, col = "red", xlab = "Fecundidade Total", ylab = "Freq
 text(h$mids,h$counts,labels=h$counts, adj=c(0.5, -0.5))
 
 h <- hist(cluster2$FECTOT, col = "red", xlab = "Mortalidade Infantil", ylab = "Frequência", main = "Cluster 2 - Mortalidade Infantil")
+text(h$mids,h$counts,labels=h$counts, adj=c(0.5, -0.5))
