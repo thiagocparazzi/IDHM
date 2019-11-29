@@ -61,6 +61,7 @@ ggplot(idhm, aes(ESPVIDA, IDHM_R, color = REGIÃO)) + #plotar esse quando estive
   xlab('Esperança de Vida') +
   ylab('IDHM Renda')
 
+#Verificando médias de regiões e nacional
 idhm91 <- filter(idhm, ANO%in%c('1991'))
 idhm91 <- mean(idhm91[["IDHM"]])
 N <- filter(idhm, REGIÃO%in%c('NORTE'), ANO%in%c('1991'))
@@ -118,6 +119,7 @@ barplot(avg10, main = "Média do IDHM no Brasil em 2010",
         names.arg = c("Norte", "Nordeste", "C. Oeste", "Sudeste", "Sul", "Brasil"),
         col = "lightgreen")
 
+idhm = na.omit(idhm)
 
 #FILTRO POR REGIÃO
 norte <- filter(idhm, UF%in%c('ACRE', 'AMAZONAS', 'RONDÔNIA', 'RORAIMA', 'TOCANTINS', 'PARÁ', 'AMAPÁ'))
