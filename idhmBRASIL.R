@@ -121,242 +121,76 @@ barplot(avg10, main = "Média do IDHM no Brasil em 2010",
 
 idhm = na.omit(idhm)
 
-#FILTRO POR REGIÃO
-norte <- filter(idhm, UF%in%c('ACRE', 'AMAZONAS', 'RONDÔNIA', 'RORAIMA', 'TOCANTINS', 'PARÁ', 'AMAPÁ'))
-nordeste <- filter(idhm, UF%in%c('ALAGOAS', 'CEARÁ', 'BAHIA', 'MARANHÃO', 'PARAÍBA', 'PIAUÍ', 'PERNAMBUCO', 'RIO GRANDE DO NORTE', 'SERGIPE'))
-centro_oeste <- filter(idhm, UF%in%c('MATO GROSSO', 'MATO GROSSO DO SUL', 'GOIÁS', 'DISTRITO FEDERAL'))
-sudeste <- filter(idhm, UF%in%c('MINAS GERAIS', 'RIO DE JANEIRO', 'SÃO PAULO', 'ESPÍRITO SANTO'))
-sul <- filter(idhm, UF%in%c('RIO GRANDE DO SUL', 'SANTA CATARINA', 'PARANÁ'))
-
-rmc <- filter(idhm, Município%in%c('CAMPINAS', 'INDAIATUBA', 'AMERICANA', 'NOVA ODESSA', "SANTA BÁRBARA D'OESTE", 'SUMARÉ', 'HORTOLÂNDIA', 'MONTE MOR', 'PAULÍNIA', 'COSMÓPOLIS', 'ARTUR NOGUEIRA', 'ENGENHEIRO COELHO', 'HOLAMBRA', 'SANTO ANTÔNIO DE POSSE', 'JAGUARIÚNA', 'PEDREIRA', 'VALINHOS', 'VINHEDO', 'ITATIBA', 'MORUNGABA'))
-
-
 #Gráficos gerais
 #Expectativa de Vida XX Fecundidade Total
 ggplot(idhm, aes(ESPVIDA, FECTOT, color = REGIÃO)) +
   geom_point() + facet_grid(.~ANO) + scale_color_brewer(palette="Set1")
 
-ggplot(norte, aes(ESPVIDA, FECTOT, color = UF)) +
-  geom_point() + facet_grid(.~ANO) + scale_color_brewer(palette="Set1")
-
-ggplot(nordeste, aes(ESPVIDA, FECTOT, color = UF)) +
-  geom_point() + facet_grid(.~ANO) + scale_color_brewer(palette="Set1")
-
-ggplot(centro_oeste, aes(ESPVIDA, FECTOT, color = UF)) +
-  geom_point() + facet_grid(.~ANO)
-
-ggplot(sudeste, aes(ESPVIDA, FECTOT, color = UF)) +
-  geom_point() + facet_grid(.~ANO)
-
-ggplot(sul, aes(ESPVIDA, FECTOT, color = UF)) +
-  geom_point() + facet_grid(.~ANO)
-
-ggplot(rmc, aes(ESPVIDA, FECTOT)) +
-  geom_point() + geom_text(aes(label = Município), nudge_y = -0.025) + facet_grid(.~ANO)
+ggplot(idhm, aes(ESPVIDA, FECTOT, color = REGIÃO)) +
+  geom_point() + facet_wrap(.~REGIÃO) + scale_color_brewer(palette="Set1")
 
 #Taxa de Envelhecimento XX Fecundidade Total
 ggplot(idhm, aes(T_ENV, FECTOT, color = REGIÃO)) +
   geom_point() + facet_grid(.~ANO) + scale_color_brewer(palette="Set1")
 
-ggplot(norte, aes(T_ENV, FECTOT, color = UF)) +
-  geom_point() + facet_grid(.~ANO) + scale_color_brewer(palette="Set1")
-
-ggplot(nordeste, aes(T_ENV, FECTOT, color = UF)) +
-  geom_point() + facet_grid(.~ANO) + scale_color_brewer(palette="Set1")
-
-ggplot(centro_oeste, aes(T_ENV, FECTOT, color = UF)) +
-  geom_point() + facet_grid(.~ANO)
-
-ggplot(sudeste, aes(T_ENV, FECTOT, color = UF)) +
-  geom_point() + facet_grid(.~ANO)
-
-ggplot(sul, aes(T_ENV, FECTOT, color = UF)) +
-  geom_point() + facet_grid(.~ANO)
-
-ggplot(rmc, aes(T_ENV, FECTOT)) +
-  geom_point() + geom_text(aes(label = Município), nudge_y = -0.025) + facet_grid(.~ANO)
+ggplot(idhm, aes(T_ENV, FECTOT, color = REGIÃO)) +
+  geom_point() + facet_wrap(.~REGIÃO) + scale_color_brewer(palette="Set1")
 
 #Expectativa de Vida XX Expectativa Anos de Estudo
 ggplot(idhm, aes(ESPVIDA, E_ANOSESTUDO, color = REGIÃO)) +
   geom_point() + facet_grid(.~ANO) + scale_color_brewer(palette="Set1")
 
-ggplot(norte, aes(ESPVIDA, E_ANOSESTUDO, color = UF)) +
-  geom_point() + facet_grid(.~ANO) + scale_color_brewer(palette="Set1")
-
-ggplot(nordeste, aes(ESPVIDA, E_ANOSESTUDO, color = UF)) +
-  geom_point() + facet_grid(.~ANO) + scale_color_brewer(palette="Set1")
-
-ggplot(centro_oeste, aes(ESPVIDA, E_ANOSESTUDO, color = UF)) +
-  geom_point() + facet_grid(.~ANO)
-
-ggplot(sudeste, aes(ESPVIDA, E_ANOSESTUDO, color = UF)) +
-  geom_point() + facet_grid(.~ANO)
-
-ggplot(sul, aes(ESPVIDA, E_ANOSESTUDO, color = UF)) +
-  geom_point() + facet_grid(.~ANO)
-
-ggplot(rmc, aes(ESPVIDA, E_ANOSESTUDO)) +
-  geom_point() + geom_text(aes(label = Município), nudge_y = -0.025) + facet_grid(.~ANO)
+ggplot(idhm, aes(ESPVIDA, E_ANOSESTUDO, color = REGIÃO)) +
+  geom_point() + facet_wrap(.~REGIÃO) + scale_color_brewer(palette="Set1")
 
 #Expectativa Anos de Estudo XX IDHM de Educação
 ggplot(idhm, aes(IDHM_E, E_ANOSESTUDO, color = REGIÃO)) +
   geom_point() + facet_grid(.~ANO) + scale_color_brewer(palette="Set1")
 
-ggplot(norte, aes(IDHM_E, E_ANOSESTUDO, color = UF)) +
-  geom_point() + facet_grid(.~ANO) + scale_color_brewer(palette="Set1")
-
-ggplot(nordeste, aes(IDHM_E, E_ANOSESTUDO, color = UF)) +
-  geom_point() + facet_grid(.~ANO) + scale_color_brewer(palette="Set1")
-
-ggplot(centro_oeste, aes(IDHM_E, E_ANOSESTUDO, color = UF)) +
-  geom_point() + facet_grid(.~ANO)
-
-ggplot(sudeste, aes(IDHM_E, E_ANOSESTUDO, color = UF)) +
-  geom_point() + facet_grid(.~ANO)
-
-ggplot(sul, aes(IDHM_E, E_ANOSESTUDO, color = UF)) +
-  geom_point() + facet_grid(.~ANO)
-
-ggplot(rmc, aes(IDHM_E, E_ANOSESTUDO)) +
-  geom_point() + geom_text(aes(label = Município), nudge_y = -0.025) + facet_grid(.~ANO)
+ggplot(idhm, aes(IDHM_E, E_ANOSESTUDO, color = REGIÃO)) +
+  geom_point() + facet_wrap(.~REGIÃO) + scale_color_brewer(palette="Set1")
 
 #Índice de Escolaridade XX IDHM de Educação
 ggplot(idhm, aes(IDHM_E, I_ESCOLARIDADE, color = REGIÃO)) +
   geom_point() + facet_grid(.~ANO) + scale_color_brewer(palette="Set1")
 
-ggplot(norte, aes(IDHM_E, I_ESCOLARIDADE, color = UF)) +
-  geom_point() + facet_grid(.~ANO) + scale_color_brewer(palette="Set1")
-
-ggplot(nordeste, aes(IDHM_E, I_ESCOLARIDADE, color = UF)) +
-  geom_point() + facet_grid(.~ANO) + scale_color_brewer(palette="Set1")
-
-ggplot(centro_oeste, aes(IDHM_E, I_ESCOLARIDADE, color = UF)) +
-  geom_point() + facet_grid(.~ANO)
-
-ggplot(sudeste, aes(IDHM_E, I_ESCOLARIDADE, color = UF)) +
-  geom_point() + facet_grid(.~ANO)
-
-ggplot(sul, aes(IDHM_E, I_ESCOLARIDADE, color = UF)) +
-  geom_point() + facet_grid(.~ANO)
-
-ggplot(rmc, aes(IDHM_E, I_ESCOLARIDADE)) +
-  geom_point() + geom_text(aes(label = Município), nudge_y = -0.01) + facet_grid(.~ANO)
+ggplot(idhm, aes(IDHM_E, I_ESCOLARIDADE, color = REGIÃO)) +
+  geom_point() + facet_wrap(.~REGIÃO) + scale_color_brewer(palette="Set1")
 
 #Renda per capita máxima do Primeiro quinto mais pobre XX Quem vive com menos de 70 reais
 ggplot(idhm, aes(CORTE1, PIND, color = REGIÃO)) +
   geom_point() + facet_grid(.~ANO) + scale_color_brewer(palette="Set1")
 
-ggplot(norte, aes(CORTE1, PIND, color = UF)) +
-  geom_point() + facet_grid(.~ANO) + scale_color_brewer(palette="Set1")
-
-ggplot(nordeste, aes(CORTE1, PIND, color = UF)) +
-  geom_point() + facet_grid(.~ANO) + scale_color_brewer(palette="Set1")
-
-ggplot(centro_oeste, aes(CORTE1, PIND, color = UF)) +
-  geom_point() + facet_grid(.~ANO)
-
-ggplot(sudeste, aes(CORTE1, PIND, color = UF)) +
-  geom_point() + facet_grid(.~ANO)
-
-ggplot(sul, aes(CORTE1, PIND, color = UF)) +
-  geom_point() + facet_grid(.~ANO)
-
-ggplot(rmc, aes(CORTE1, PIND)) +
-  geom_point() + geom_text(aes(label = Município), nudge_y = -0.025) + facet_grid(.~ANO)
+ggplot(idhm, aes(CORTE1, PIND, color = REGIÃO)) +
+  geom_point() + facet_wrap(.~REGIÃO) + scale_color_brewer(palette="Set1")
 
 #Renda per capita máxima do Segundo quinto mais pobre XX Quem vive com menos de 70 reais
 ggplot(idhm, aes(CORTE2, PIND, color = REGIÃO)) +
   geom_point() + facet_grid(.~ANO) + scale_color_brewer(palette="Set1")
 
-ggplot(norte, aes(CORTE2, PIND, color = UF)) +
-  geom_point() + facet_grid(.~ANO) + scale_color_brewer(palette="Set1")
-
-ggplot(nordeste, aes(CORTE2, PIND, color = UF)) +
-  geom_point() + facet_grid(.~ANO) + scale_color_brewer(palette="Set1")
-
-ggplot(centro_oeste, aes(CORTE2, PIND, color = UF)) +
-  geom_point() + facet_grid(.~ANO)
-
-ggplot(sudeste, aes(CORTE2, PIND, color = UF)) +
-  geom_point() + facet_grid(.~ANO)
-
-ggplot(sul, aes(CORTE2, PIND, color = UF)) +
-  geom_point() + facet_grid(.~ANO)
-
-ggplot(rmc, aes(CORTE2, PIND)) +
-  geom_point() + geom_text(aes(label = Município), nudge_y = -0.025) + facet_grid(.~ANO)
+ggplot(idhm, aes(CORTE2, PIND, color = REGIÃO)) +
+  geom_point() + facet_wrap(.~REGIÃO) + scale_color_brewer(palette="Set1")
 
 #Renda per capita máxima do Terceiro quinto mais pobre XX Quem vive com menos de 70 reais
 ggplot(idhm, aes(CORTE3, PIND, color = REGIÃO)) +
   geom_point() + facet_grid(.~ANO) + scale_color_brewer(palette="Set1")
 
-ggplot(norte, aes(CORTE3, PIND, color = UF)) +
-  geom_point() + facet_grid(.~ANO) + scale_color_brewer(palette="Set1")
-
-ggplot(nordeste, aes(CORTE3, PIND, color = UF)) +
-  geom_point() + facet_grid(.~ANO) + scale_color_brewer(palette="Set1")
-
-ggplot(centro_oeste, aes(CORTE3, PIND, color = UF)) +
-  geom_point() + facet_grid(.~ANO)
-
-ggplot(sudeste, aes(CORTE3, PIND, color = UF)) +
-  geom_point() + facet_grid(.~ANO)
-
-ggplot(sul, aes(CORTE3, PIND, color = UF)) +
-  geom_point() + facet_grid(.~ANO)
-
-ggplot(rmc, aes(CORTE3, PIND)) +
-  geom_point() + geom_text(aes(label = Município), nudge_y = -0.025) + facet_grid(.~ANO)
+ggplot(idhm, aes(CORTE3, PIND, color = REGIÃO)) +
+  geom_point() + facet_wrap(.~REGIÃO) + scale_color_brewer(palette="Set1")
 
 #Renda per capita máxima do Quarto quinto mais pobre XX Quem vive com menos de 70 reais
 ggplot(idhm, aes(CORTE4, PIND, color = REGIÃO)) +
   geom_point() + facet_grid(.~ANO) + scale_color_brewer(palette="Set1")
 
-ggplot(norte, aes(CORTE4, PIND, color = UF)) +
-  geom_point() + facet_grid(.~ANO) + scale_color_brewer(palette="Set1")
-
-ggplot(nordeste, aes(CORTE4, PIND, color = UF)) +
-  geom_point() + facet_grid(.~ANO) + scale_color_brewer(palette="Set1")
-
-ggplot(centro_oeste, aes(CORTE4, PIND, color = UF)) +
-  geom_point() + facet_grid(.~ANO)
-
-ggplot(sudeste, aes(CORTE4, PIND, color = UF)) +
-  geom_point() + facet_grid(.~ANO)
-
-ggplot(sul, aes(CORTE4, PIND, color = UF)) +
-  geom_point() + facet_grid(.~ANO)
-
-ggplot(rmc, aes(CORTE4, PIND)) +
-  geom_point() + geom_text(aes(label = Município), nudge_y = -0.025) + facet_grid(.~ANO)
+ggplot(idhm, aes(CORTE4, PIND, color = REGIÃO)) +
+  geom_point() + facet_wrap(.~REGIÃO) + scale_color_brewer(palette="Set1")
 
 #Índice de desigualdade XX IDHM
 ggplot(idhm, aes(GINI, IDHM, color = REGIÃO)) +
   geom_point() + facet_grid(.~ANO) + scale_color_brewer(palette="Set1")
 
-ggplot(norte, aes(GINI, IDHM, color = UF)) +
-  geom_point() + facet_grid(.~ANO) + scale_color_brewer(palette="Set1")
-
-ggplot(nordeste, aes(GINI, IDHM, color = UF)) +
-  geom_point() + facet_grid(.~ANO) + scale_color_brewer(palette="Set1")
-
-ggplot(centro_oeste, aes(GINI, IDHM, color = UF)) +
-  geom_point() + facet_grid(.~ANO)
-
-ggplot(sudeste, aes(GINI, IDHM, color = UF)) +
-  geom_point() + facet_grid(.~ANO)
-
-ggplot(sul, aes(GINI, IDHM, color = UF)) +
-  geom_point() + facet_grid(.~ANO)
-
-ggplot(rmc, aes(GINI, IDHM)) +
-  geom_point() + geom_text(aes(label = Município), nudge_y = -0.0015) + facet_grid(.~ANO)
-
-#População XX Fecundidade Total
-ggplot(rmc, aes(ESPVIDA, POPT)) +
-  geom_point() + geom_text(aes(label = Município), nudge_y = -0.0015) + facet_grid(.~ANO)
-
-boxplot(sul[,9:240])
+ggplot(idhm, aes(GINI, IDHM, color = REGIÃO)) +
+  geom_point() + facet_wrap(.~REGIÃO) + scale_color_brewer(palette="Set1")
 
 ####################
 
