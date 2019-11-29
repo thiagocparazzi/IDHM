@@ -129,12 +129,18 @@ ggplot(idhm, aes(ESPVIDA, FECTOT, color = REGIÃO)) +
 ggplot(idhm, aes(ESPVIDA, FECTOT, color = REGIÃO)) +
   geom_point() + facet_wrap(.~REGIÃO) + scale_color_brewer(palette="Set1")
 
+ggplot(idhm, aes(ESPVIDA, FECTOT, color = REGIÃO)) +
+  geom_point() + facet_wrap(.~UF) + scale_color_brewer(palette="Set1")
+
 #Taxa de Envelhecimento XX Fecundidade Total
 ggplot(idhm, aes(T_ENV, FECTOT, color = REGIÃO)) +
   geom_point() + facet_grid(.~ANO) + scale_color_brewer(palette="Set1")
 
 ggplot(idhm, aes(T_ENV, FECTOT, color = REGIÃO)) +
   geom_point() + facet_wrap(.~REGIÃO) + scale_color_brewer(palette="Set1")
+
+ggplot(idhm, aes(T_ENV, FECTOT, color = REGIÃO)) +
+  geom_point() + facet_wrap(.~UF) + scale_color_brewer(palette="Set1")
 
 #Expectativa de Vida XX Expectativa Anos de Estudo
 ggplot(idhm, aes(ESPVIDA, E_ANOSESTUDO, color = REGIÃO)) +
@@ -143,12 +149,18 @@ ggplot(idhm, aes(ESPVIDA, E_ANOSESTUDO, color = REGIÃO)) +
 ggplot(idhm, aes(ESPVIDA, E_ANOSESTUDO, color = REGIÃO)) +
   geom_point() + facet_wrap(.~REGIÃO) + scale_color_brewer(palette="Set1")
 
+ggplot(idhm, aes(ESPVIDA, E_ANOSESTUDO, color = REGIÃO)) +
+  geom_point() + facet_wrap(.~UF) + scale_color_brewer(palette="Set1")
+
 #Expectativa Anos de Estudo XX IDHM de Educação
 ggplot(idhm, aes(IDHM_E, E_ANOSESTUDO, color = REGIÃO)) +
   geom_point() + facet_grid(.~ANO) + scale_color_brewer(palette="Set1")
 
 ggplot(idhm, aes(IDHM_E, E_ANOSESTUDO, color = REGIÃO)) +
   geom_point() + facet_wrap(.~REGIÃO) + scale_color_brewer(palette="Set1")
+
+ggplot(idhm, aes(IDHM_E, E_ANOSESTUDO, color = REGIÃO)) +
+  geom_point() + facet_wrap(.~UF) + scale_color_brewer(palette="Set1")
 
 #Índice de Escolaridade XX IDHM de Educação
 ggplot(idhm, aes(IDHM_E, I_ESCOLARIDADE, color = REGIÃO)) +
@@ -157,12 +169,18 @@ ggplot(idhm, aes(IDHM_E, I_ESCOLARIDADE, color = REGIÃO)) +
 ggplot(idhm, aes(IDHM_E, I_ESCOLARIDADE, color = REGIÃO)) +
   geom_point() + facet_wrap(.~REGIÃO) + scale_color_brewer(palette="Set1")
 
+ggplot(idhm, aes(IDHM_E, I_ESCOLARIDADE, color = REGIÃO)) +
+  geom_point() + facet_wrap(.~UF) + scale_color_brewer(palette="Set1")
+
 #Renda per capita máxima do Primeiro quinto mais pobre XX Quem vive com menos de 70 reais
 ggplot(idhm, aes(CORTE1, PIND, color = REGIÃO)) +
   geom_point() + facet_grid(.~ANO) + scale_color_brewer(palette="Set1")
 
 ggplot(idhm, aes(CORTE1, PIND, color = REGIÃO)) +
   geom_point() + facet_wrap(.~REGIÃO) + scale_color_brewer(palette="Set1")
+
+ggplot(idhm, aes(CORTE1, PIND, color = REGIÃO)) +
+  geom_point() + facet_wrap(.~UF) + scale_color_brewer(palette="Set1")
 
 #Renda per capita máxima do Segundo quinto mais pobre XX Quem vive com menos de 70 reais
 ggplot(idhm, aes(CORTE2, PIND, color = REGIÃO)) +
@@ -171,12 +189,18 @@ ggplot(idhm, aes(CORTE2, PIND, color = REGIÃO)) +
 ggplot(idhm, aes(CORTE2, PIND, color = REGIÃO)) +
   geom_point() + facet_wrap(.~REGIÃO) + scale_color_brewer(palette="Set1")
 
+ggplot(idhm, aes(CORTE2, PIND, color = REGIÃO)) +
+  geom_point() + facet_wrap(.~UF) + scale_color_brewer(palette="Set1")
+
 #Renda per capita máxima do Terceiro quinto mais pobre XX Quem vive com menos de 70 reais
 ggplot(idhm, aes(CORTE3, PIND, color = REGIÃO)) +
   geom_point() + facet_grid(.~ANO) + scale_color_brewer(palette="Set1")
 
 ggplot(idhm, aes(CORTE3, PIND, color = REGIÃO)) +
   geom_point() + facet_wrap(.~REGIÃO) + scale_color_brewer(palette="Set1")
+
+ggplot(idhm, aes(CORTE3, PIND, color = REGIÃO)) +
+  geom_point() + facet_wrap(.~UF) + scale_color_brewer(palette="Set1")
 
 #Renda per capita máxima do Quarto quinto mais pobre XX Quem vive com menos de 70 reais
 ggplot(idhm, aes(CORTE4, PIND, color = REGIÃO)) +
@@ -185,12 +209,15 @@ ggplot(idhm, aes(CORTE4, PIND, color = REGIÃO)) +
 ggplot(idhm, aes(CORTE4, PIND, color = REGIÃO)) +
   geom_point() + facet_wrap(.~REGIÃO) + scale_color_brewer(palette="Set1")
 
+ggplot(idhm, aes(CORTE4, PIND, color = REGIÃO)) +
+  geom_point() + facet_wrap(.~UF) + scale_color_brewer(palette="Set1")
+
 #Índice de desigualdade XX IDHM
 ggplot(idhm, aes(GINI, IDHM, color = REGIÃO)) +
   geom_point() + facet_grid(.~ANO) + scale_color_brewer(palette="Set1")
 
 ggplot(idhm, aes(GINI, IDHM, color = REGIÃO)) +
-  geom_point() + facet_wrap(.~REGIÃO) + scale_color_brewer(palette="Set1")
+  geom_point() + facet_wrap(.~UF) + scale_color_brewer(palette="Set1")
 
 ####################
 
