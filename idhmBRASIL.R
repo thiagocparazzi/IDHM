@@ -132,14 +132,14 @@ ggplot(idhm, aes(ESPVIDA, FECTOT, color = REGIÃO)) +
 ggplot(idhm, aes(ESPVIDA, FECTOT, color = REGIÃO)) +
   geom_point() + facet_wrap(.~UF) + scale_color_brewer(palette="Set1")
 
-#Taxa de Envelhecimento XX Fecundidade Total
-ggplot(idhm, aes(T_ENV, FECTOT, color = REGIÃO)) +
+#Taxa de Envelhecimento XX Esperança de Vida
+ggplot(idhm, aes(T_ENV, ESPVIDA, color = REGIÃO)) +
   geom_point() + facet_grid(.~ANO) + scale_color_brewer(palette="Set1")
 
-ggplot(idhm, aes(T_ENV, FECTOT, color = REGIÃO)) +
+ggplot(idhm, aes(T_ENV, ESPVIDA, color = REGIÃO)) +
   geom_point() + facet_wrap(.~REGIÃO) + scale_color_brewer(palette="Set1")
 
-ggplot(idhm, aes(T_ENV, FECTOT, color = REGIÃO)) +
+ggplot(idhm, aes(T_ENV, ESPVIDA, color = REGIÃO)) +
   geom_point() + facet_wrap(.~UF) + scale_color_brewer(palette="Set1")
 
 #Expectativa de Vida XX Expectativa Anos de Estudo
@@ -217,11 +217,16 @@ ggplot(idhm, aes(GINI, IDHM, color = REGIÃO)) +
   geom_point() + facet_grid(.~ANO) + scale_color_brewer(palette="Set1")
 
 ggplot(idhm, aes(GINI, IDHM, color = REGIÃO)) +
+  geom_point() + facet_wrap(.~REGIÃO) + scale_color_brewer(palette="Set1")
+
+ggplot(idhm, aes(GINI, IDHM, color = REGIÃO)) +
   geom_point() + facet_wrap(.~UF) + scale_color_brewer(palette="Set1")
 
 ####################
 
 #CLUSTERIZAÇÃO#
+
+set.seed(123)
 
 #padronização dos dados numéricos
 idhm.scaled <- scale(idhm[, -c(1:8, 241)])
