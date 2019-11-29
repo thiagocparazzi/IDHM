@@ -4,6 +4,7 @@
 #install.packages("animation")
 #install.packages("rgl")
 #install.packages("gridExtra")
+#install.packages("gganimate")
 
 library(tidyverse)
 library(ggplot2)
@@ -11,6 +12,7 @@ library(factoextra)
 library(animation)
 library(rgl)
 library(gridExtra)
+library(gganimate)
 
 #lendo arquivo
 idhm = read.csv('D:/Dados/Downloads/idhmBrasil.csv', header = TRUE, fileEncoding = 'UTF-8')
@@ -29,11 +31,17 @@ idhm$REGIÃO <- ifelse(idhm$UF == 'ACRE' | idhm$UF == 'AMAZONAS' | idhm$UF =='RO
 #VISUALIZAÇÃO DOS DADOS#
 
 #Gráficos gerais - sem omitir os dados NA
-ggplot(idhm, aes(ESPVIDA, IDHM, color = REGIÃO)) + #plotar esse quando estiver geral com os tres anos
+p <- ggplot(idhm, aes(ESPVIDA, IDHM, color = REGIÃO)) + #plotar esse quando estiver geral com os tres anos
   geom_point() + facet_grid(.~ANO) +
   ggtitle('IDHM Geral por Esperança de Vida') +
   xlab('Esperança de Vida') +
-  ylab('IDHM Geral')
+  ylab('IDHM Geral') 
+
+p + facet_wrap(~REGIÃO) +
+  transition_time(ANO) +
+  labs(title = "ANO: {frame_time} - IDHM Geral")
+
+plot(p)
 
 ggplot(idhm, aes(ESPVIDA, IDHM_E, color = REGIÃO)) + #plotar esse quando estiver geral com os tres anos
   geom_point() + facet_grid(.~ANO) +
@@ -53,7 +61,63 @@ ggplot(idhm, aes(ESPVIDA, IDHM_R, color = REGIÃO)) + #plotar esse quando estive
   xlab('Esperança de Vida') +
   ylab('IDHM Renda')
 
-idhm = na.omit(idhm)
+idhm91 <- filter(idhm, ANO%in%c('1991'))
+idhm91 <- mean(idhm91[["IDHM"]])
+N <- filter(idhm, REGIÃO%in%c('NORTE'), ANO%in%c('1991'))
+N <- mean(N[["IDHM"]])
+ND <- filter(idhm, REGIÃO%in%c('NORDESTE'), ANO%in%c('1991'))
+ND <- mean(ND[["IDHM"]])
+CO <- filter(idhm, REGIÃO%in%c('CENTRO OESTE'), ANO%in%c('1991'))
+CO <- mean(CO[["IDHM"]])
+SD <- filter(idhm, REGIÃO%in%c('SUDESTE'), ANO%in%c('1991'))
+SD <- mean(SD[["IDHM"]])
+S <- filter(idhm, REGIÃO%in%c('SUL'), ANO%in%c('1991'))
+S <- mean(S[["IDHM"]])
+
+avg91 <- c(N, ND, CO, SD, S, idhm91)
+
+barplot(avg91, main = "Média do IDHM no Brasil em 1991",
+        names.arg = c("Norte", "Nordeste", "C. Oeste", "Sudeste", "Sul", "Brasil"),
+        col = "lightgreen")
+
+idhm00 <- filter(idhm, ANO%in%c('2000'))
+idhm00 <- mean(idhm00[["IDHM"]])
+N <- filter(idhm, REGIÃO%in%c('NORTE'), ANO%in%c('2000'))
+N <- mean(N[["IDHM"]])
+ND <- filter(idhm, REGIÃO%in%c('NORDESTE'), ANO%in%c('2000'))
+ND <- mean(ND[["IDHM"]])
+CO <- filter(idhm, REGIÃO%in%c('CENTRO OESTE'), ANO%in%c('2000'))
+CO <- mean(CO[["IDHM"]])
+SD <- filter(idhm, REGIÃO%in%c('SUDESTE'), ANO%in%c('2000'))
+SD <- mean(SD[["IDHM"]])
+S <- filter(idhm, REGIÃO%in%c('SUL'), ANO%in%c('2000'))
+S <- mean(S[["IDHM"]])
+
+avg00 <- c(N, ND, CO, SD, S, idhm00)
+
+barplot(avg00, main = "Média do IDHM no Brasil em 2000",
+        names.arg = c("Norte", "Nordeste", "C. Oeste", "Sudeste", "Sul", "Brasil"),
+        col = "lightgreen")
+
+idhm10 <- filter(idhm, ANO%in%c('2010'))
+idhm10 <- mean(idhm10[["IDHM"]])
+N <- filter(idhm, REGIÃO%in%c('NORTE'), ANO%in%c('2010'))
+N <- mean(N[["IDHM"]])
+ND <- filter(idhm, REGIÃO%in%c('NORDESTE'), ANO%in%c('2010'))
+ND <- mean(ND[["IDHM"]])
+CO <- filter(idhm, REGIÃO%in%c('CENTRO OESTE'), ANO%in%c('2010'))
+CO <- mean(CO[["IDHM"]])
+SD <- filter(idhm, REGIÃO%in%c('SUDESTE'), ANO%in%c('2010'))
+SD <- mean(SD[["IDHM"]])
+S <- filter(idhm, REGIÃO%in%c('SUL'), ANO%in%c('2010'))
+S <- mean(S[["IDHM"]])
+
+avg10 <- c(N, ND, CO, SD, S, idhm10)
+
+barplot(avg10, main = "Média do IDHM no Brasil em 2010",
+        names.arg = c("Norte", "Nordeste", "C. Oeste", "Sudeste", "Sul", "Brasil"),
+        col = "lightgreen")
+
 
 #FILTRO POR REGIÃO
 norte <- filter(idhm, UF%in%c('ACRE', 'AMAZONAS', 'RONDÔNIA', 'RORAIMA', 'TOCANTINS', 'PARÁ', 'AMAPÁ'))
