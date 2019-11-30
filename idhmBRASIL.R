@@ -142,16 +142,6 @@ ggplot(idhm, aes(T_ENV, ESPVIDA, color = REGIÃO)) +
 ggplot(idhm, aes(T_ENV, ESPVIDA, color = REGIÃO)) +
   geom_point() + facet_wrap(.~UF) + scale_color_brewer(palette="Set1")
 
-#Expectativa de Vida XX Expectativa Anos de Estudo
-ggplot(idhm, aes(ESPVIDA, E_ANOSESTUDO, color = REGIÃO)) +
-  geom_point() + facet_grid(.~ANO) + scale_color_brewer(palette="Set1")
-
-ggplot(idhm, aes(ESPVIDA, E_ANOSESTUDO, color = REGIÃO)) +
-  geom_point() + facet_wrap(.~REGIÃO) + scale_color_brewer(palette="Set1")
-
-ggplot(idhm, aes(ESPVIDA, E_ANOSESTUDO, color = REGIÃO)) +
-  geom_point() + facet_wrap(.~UF) + scale_color_brewer(palette="Set1")
-
 #Expectativa Anos de Estudo XX IDHM de Educação
 ggplot(idhm, aes(IDHM_E, E_ANOSESTUDO, color = REGIÃO)) +
   geom_point() + facet_grid(.~ANO) + scale_color_brewer(palette="Set1")
@@ -162,55 +152,47 @@ ggplot(idhm, aes(IDHM_E, E_ANOSESTUDO, color = REGIÃO)) +
 ggplot(idhm, aes(IDHM_E, E_ANOSESTUDO, color = REGIÃO)) +
   geom_point() + facet_wrap(.~UF) + scale_color_brewer(palette="Set1")
 
-#Índice de Escolaridade XX IDHM de Educação
-ggplot(idhm, aes(IDHM_E, I_ESCOLARIDADE, color = REGIÃO)) +
+#Expectativa de Anos de Estudo XX Renda 
+ggplot(idhm, aes(RDPC, E_ANOSESTUDO, color = REGIÃO)) +
   geom_point() + facet_grid(.~ANO) + scale_color_brewer(palette="Set1")
 
-ggplot(idhm, aes(IDHM_E, I_ESCOLARIDADE, color = REGIÃO)) +
+ggplot(idhm, aes(RDPC, E_ANOSESTUDO, color = REGIÃO)) +
   geom_point() + facet_wrap(.~REGIÃO) + scale_color_brewer(palette="Set1")
 
-ggplot(idhm, aes(IDHM_E, I_ESCOLARIDADE, color = REGIÃO)) +
+ggplot(idhm, aes(RDPC, E_ANOSESTUDO, color = REGIÃO)) +
   geom_point() + facet_wrap(.~UF) + scale_color_brewer(palette="Set1")
 
-#Renda per capita máxima do Primeiro quinto mais pobre XX Quem vive com menos de 70 reais
-ggplot(idhm, aes(CORTE1, PIND, color = REGIÃO)) +
+#Taxa sem atraso no Ensinos Básicos, Fundamental e Médio XX Renda 
+p1 <- ggplot(idhm, aes(RDPC, T_ATRASO_0_BASICO, color = REGIÃO)) +
   geom_point() + facet_grid(.~ANO) + scale_color_brewer(palette="Set1")
 
-ggplot(idhm, aes(CORTE1, PIND, color = REGIÃO)) +
-  geom_point() + facet_wrap(.~REGIÃO) + scale_color_brewer(palette="Set1")
-
-ggplot(idhm, aes(CORTE1, PIND, color = REGIÃO)) +
-  geom_point() + facet_wrap(.~UF) + scale_color_brewer(palette="Set1")
-
-#Renda per capita máxima do Segundo quinto mais pobre XX Quem vive com menos de 70 reais
-ggplot(idhm, aes(CORTE2, PIND, color = REGIÃO)) +
+p2 <- ggplot(idhm, aes(RDPC, T_ATRASO_0_FUND, color = REGIÃO)) +
   geom_point() + facet_grid(.~ANO) + scale_color_brewer(palette="Set1")
 
-ggplot(idhm, aes(CORTE2, PIND, color = REGIÃO)) +
-  geom_point() + facet_wrap(.~REGIÃO) + scale_color_brewer(palette="Set1")
-
-ggplot(idhm, aes(CORTE2, PIND, color = REGIÃO)) +
-  geom_point() + facet_wrap(.~UF) + scale_color_brewer(palette="Set1")
-
-#Renda per capita máxima do Terceiro quinto mais pobre XX Quem vive com menos de 70 reais
-ggplot(idhm, aes(CORTE3, PIND, color = REGIÃO)) +
+p3 <- ggplot(idhm, aes(RDPC, T_ATRASO_0_MED, color = REGIÃO)) +
   geom_point() + facet_grid(.~ANO) + scale_color_brewer(palette="Set1")
 
-ggplot(idhm, aes(CORTE3, PIND, color = REGIÃO)) +
+grid.arrange(p1, p2, p3, nrow = 2)
+
+p1 <- ggplot(idhm, aes(RDPC, T_ATRASO_0_BASICO, color = REGIÃO)) +
   geom_point() + facet_wrap(.~REGIÃO) + scale_color_brewer(palette="Set1")
 
-ggplot(idhm, aes(CORTE3, PIND, color = REGIÃO)) +
+p2 <- ggplot(idhm, aes(RDPC, T_ATRASO_0_FUND, color = REGIÃO)) +
+  geom_point() + facet_grid(.~REGIÃO) + scale_color_brewer(palette="Set1")
+
+p3 <- ggplot(idhm, aes(RDPC, T_ATRASO_0_MED, color = REGIÃO)) +
+  geom_point() + facet_grid(.~REGIÃO) + scale_color_brewer(palette="Set1")
+
+grid.arrange(p1, p2, p3, nrow = 3)
+
+ggplot(idhm, aes(RDPC, T_ATRASO_0_BASICO, color = REGIÃO)) +
   geom_point() + facet_wrap(.~UF) + scale_color_brewer(palette="Set1")
 
-#Renda per capita máxima do Quarto quinto mais pobre XX Quem vive com menos de 70 reais
-ggplot(idhm, aes(CORTE4, PIND, color = REGIÃO)) +
-  geom_point() + facet_grid(.~ANO) + scale_color_brewer(palette="Set1")
+ggplot(idhm, aes(RDPC, T_ATRASO_0_FUND, color = REGIÃO)) +
+  geom_point() + facet_grid(.~UF) + scale_color_brewer(palette="Set1")
 
-ggplot(idhm, aes(CORTE4, PIND, color = REGIÃO)) +
-  geom_point() + facet_wrap(.~REGIÃO) + scale_color_brewer(palette="Set1")
-
-ggplot(idhm, aes(CORTE4, PIND, color = REGIÃO)) +
-  geom_point() + facet_wrap(.~UF) + scale_color_brewer(palette="Set1")
+ggplot(idhm, aes(RDPC, T_ATRASO_0_MED, color = REGIÃO)) +
+  geom_point() + facet_grid(.~UF) + scale_color_brewer(palette="Set1")
 
 #Índice de desigualdade XX IDHM
 ggplot(idhm, aes(GINI, IDHM, color = REGIÃO)) +
