@@ -208,8 +208,6 @@ ggplot(idhm, aes(GINI, IDHM, color = REGIÃO)) +
 
 #CLUSTERIZAÇÃO#
 
-set.seed(123)
-
 #padronização dos dados numéricos
 idhm.scaled <- scale(idhm[, -c(1:8, 241)])
 
@@ -221,25 +219,25 @@ fviz_nbclust(idhm.scaled, kmeans, method = "silhouette") +
   labs(subtitle = "Silhouette method")
 
 #plots de comparação
-k2 <- kmeans(idhm.scaled, centers = 2)
-k3 <- kmeans(idhm.scaled, centers = 3)
-k4 <- kmeans(idhm.scaled, centers = 4)
-
-p1 <- fviz_cluster(k2, geom = "point", data = idhm.scaled) + ggtitle("k = 2")
-p2 <- fviz_cluster(k3, geom = "point",  data = idhm.scaled) + ggtitle("k = 3")
-p3 <- fviz_cluster(k4, geom = "point",  data = idhm.scaled) + ggtitle("k = 4")
+p1 <- fviz_cluster(kmeans(idhm.scaled, centers = 2), geom = "point", data = idhm.scaled) + ggtitle("k = 2")
+p2 <- fviz_cluster(kmeans(idhm.scaled, centers = 3), geom = "point",  data = idhm.scaled) + ggtitle("k = 3")
+p3 <- fviz_cluster(kmeans(idhm.scaled, centers = 4), geom = "point",  data = idhm.scaled) + ggtitle("k = 4")
 
 grid.arrange(p1, p2, p3, nrow = 2)
 
+##################### K = 2
+
 #visualização dos clusters
+set.seed(2)
 kmeans.ani(idhm.scaled, 2)
+
+set.seed(2)
 cluster <- kmeans(idhm.scaled, 2)
 idhm_data <- idhm
 idhm_data$cluster <- as.factor(cluster$cluster)
 
 fviz_cluster(cluster, data = idhm.scaled)
 plot3d(idhm.scaled, col=idhm_data$cluster, main="k-means clusters")
-heatmap(idhm.scaled)
 
 #separando por clusters
 ###CLUSTER 1
@@ -251,7 +249,7 @@ text(h$mids,h$counts,labels=h$counts, adj=c(0.5, -0.5))
 h <- hist(cluster1$FECTOT, col = "green", xlab = "Fecundidade Total", ylab = "Frequência", main = "Cluster 1 - Fecundidade Total")
 text(h$mids,h$counts,labels=h$counts, adj=c(0.5, -0.5))
 
-h <- hist(cluster1$FECTOT, col = "green", xlab = "Mortalidade Infantil", ylab = "Frequência", main = "Cluster 1 - Mortalidade Infantil")
+h <- hist(cluster1$MORT1, col = "green", xlab = "Mortalidade Infantil", ylab = "Frequência", main = "Cluster 1 - Mortalidade Infantil")
 text(h$mids,h$counts,labels=h$counts, adj=c(0.5, -0.5))
 
 ###CLUSTER 2
@@ -263,5 +261,68 @@ text(h$mids,h$counts,labels=h$counts, adj=c(0.5, -0.5))
 h <- hist(cluster2$FECTOT, col = "red", xlab = "Fecundidade Total", ylab = "Frequência", main = "Cluster 2 - Fecundidade Total")
 text(h$mids,h$counts,labels=h$counts, adj=c(0.5, -0.5))
 
-h <- hist(cluster2$FECTOT, col = "red", xlab = "Mortalidade Infantil", ylab = "Frequência", main = "Cluster 2 - Mortalidade Infantil")
+h <- hist(cluster2$MORT1, col = "red", xlab = "Mortalidade Infantil", ylab = "Frequência", main = "Cluster 2 - Mortalidade Infantil")
+text(h$mids,h$counts,labels=h$counts, adj=c(0.5, -0.5))
+
+##################### K = 4
+
+#visualização dos clusters
+set.seed(4)
+kmeans.ani(idhm.scaled, 4)
+
+set.seed(4)
+cluster <- kmeans(idhm.scaled, 4)
+idhm_data <- idhm
+idhm_data$cluster <- as.factor(cluster$cluster)
+
+fviz_cluster(cluster, data = idhm.scaled)
+plot3d(idhm.scaled, col=idhm_data$cluster, main="k-means clusters")
+
+#separando por clusters
+###CLUSTER 1
+cluster1 <- filter(idhm_data, cluster == 1)
+
+h <- hist(cluster1$ESPVIDA, col = "green", xlab = "Esperança de Vida", ylab = "Frequência", main = "Cluster 1 - Esperança de Vida")
+text(h$mids,h$counts,labels=h$counts, adj=c(0.5, -0.5))
+
+h <- hist(cluster1$FECTOT, col = "green", xlab = "Fecundidade Total", ylab = "Frequência", main = "Cluster 1 - Fecundidade Total")
+text(h$mids,h$counts,labels=h$counts, adj=c(0.5, -0.5))
+
+h <- hist(cluster1$MORT1, col = "green", xlab = "Mortalidade Infantil", ylab = "Frequência", main = "Cluster 1 - Mortalidade Infantil")
+text(h$mids,h$counts,labels=h$counts, adj=c(0.5, -0.5))
+
+###CLUSTER 2
+cluster2 <- filter(idhm_data, cluster == 2)
+
+h <- hist(cluster2$ESPVIDA, col = "red", xlab = "Esperança de Vida", ylab = "Frequência", main = "Cluster 2 - Esperança de Vida")
+text(h$mids,h$counts,labels=h$counts, adj=c(0.5, -0.5))
+
+h <- hist(cluster2$FECTOT, col = "red", xlab = "Fecundidade Total", ylab = "Frequência", main = "Cluster 2 - Fecundidade Total")
+text(h$mids,h$counts,labels=h$counts, adj=c(0.5, -0.5))
+
+h <- hist(cluster2$MORT1, col = "red", xlab = "Mortalidade Infantil", ylab = "Frequência", main = "Cluster 2 - Mortalidade Infantil")
+text(h$mids,h$counts,labels=h$counts, adj=c(0.5, -0.5))
+
+###CLUSTER 3
+cluster3 <- filter(idhm_data, cluster == 3)
+
+h <- hist(cluster3$ESPVIDA, col = "pink", xlab = "Esperança de Vida", ylab = "Frequência", main = "Cluster 3 - Esperança de Vida")
+text(h$mids,h$counts,labels=h$counts, adj=c(0.5, -0.5))
+
+h <- hist(cluster3$FECTOT, col = "pink", xlab = "Fecundidade Total", ylab = "Frequência", main = "Cluster 3 - Fecundidade Total")
+text(h$mids,h$counts,labels=h$counts, adj=c(0.5, -0.5))
+
+h <- hist(cluster3$MORT1, col = "pink", xlab = "Mortalidade Infantil", ylab = "Frequência", main = "Cluster 3 - Mortalidade Infantil")
+text(h$mids,h$counts,labels=h$counts, adj=c(0.5, -0.5))
+
+###CLUSTER 4
+cluster4 <- filter(idhm_data, cluster == 4)
+
+h <- hist(cluster4$ESPVIDA, col = "brown", xlab = "Esperança de Vida", ylab = "Frequência", main = "Cluster 4 - Esperança de Vida")
+text(h$mids,h$counts,labels=h$counts, adj=c(0.5, -0.5))
+
+h <- hist(cluster4$FECTOT, col = "brown", xlab = "Fecundidade Total", ylab = "Frequência", main = "Cluster 4 - Fecundidade Total")
+text(h$mids,h$counts,labels=h$counts, adj=c(0.5, -0.5))
+
+h <- hist(cluster4$MORT1, col = "brown", xlab = "Mortalidade Infantil", ylab = "Frequência", main = "Cluster 4 - Mortalidade Infantil")
 text(h$mids,h$counts,labels=h$counts, adj=c(0.5, -0.5))
